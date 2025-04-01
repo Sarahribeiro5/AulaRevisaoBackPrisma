@@ -34,13 +34,25 @@ class PersonagemController {
   async createPersonagem(req, res) {
     try {
       // Validação básica
-      const { name, description, age, power, anime } = req.body;
+      const {
+        name,
+        description,
+        age,
+        power,
+        anime
+      } = req.body;
 
-      // Verifica se todos os campos obrigatórios foram fornecidos
-      if (!name || age === undefined || power === undefined || !anime) {
+      // Verifica se todos os campos do personagem foram fornecidos
+      if (
+        !name ||
+        !description ||
+        !age ||
+        !power ||
+        !anime 
+      ) {
         return res
           .status(400)
-          .json({ error: "Os campos name, age, power e anime são obrigatórios" });
+          .json({ error: "Todos os campos são obrigatórios" });
       }
 
       // Criar o novo personagem
@@ -67,7 +79,13 @@ class PersonagemController {
   async updatePersonagem(req, res) {
     try {
       const { id } = req.params;
-      const { name, description, age, power, anime } = req.body;
+      const {
+        name,
+        description,
+        age,
+        power,
+        anime
+      } = req.body;
 
       // Atualizar o personagem
       const updatedPersonagem = await PersonagemModel.update(
